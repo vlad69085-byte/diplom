@@ -84,3 +84,64 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+const typesButtons = document.querySelectorAll('.types-btn');
+const motoItems = document.querySelectorAll('.moto-item');
+const motoShowcase = document.querySelector('.moto-showcase');
+const sortSelect = document.getElementById('sortSelect');
+
+
+typesButtons.forEach(button => {
+    button.addEventListener('click', () => {
+
+        typesButtons.forEach(btn => btn.classList.remove('active'));
+
+        button.classList.add('active');
+
+        const category = button.dataset.category;
+
+
+        motoItems.forEach(item => {
+            if (category === 'all' || item.dataset.category === category) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+  
+        applySorting();
+    });
+});
+
+
+function applySorting() {
+    const sortType = sortSelect.value;
+    if (!sortType) return;
+
+
+    const visibleItems = Array.from(motoItems).filter(
+        item => item.style.display !== 'none'
+    );
+
+
+    visibleItems.sort((a, b) => {
+        if (sortType === 'price-asc') {
+            return parseInt(a.dataset.price) - parseInt(b.dataset.price);
+        } else if (sortType === 'price-desc') {
+            return parseInt(b.dataset.price) - parseInt(a.dataset.price);
+        } else if (sortType === 'power-asc') {
+            return parseInt(a.dataset.power) - parseInt(b.dataset.power);
+        } else if (sortType === 'power-desc') {
+            return parseInt(b.dataset.power) - parseInt(a.dataset.power);
+        }
+        return 0;
+    });
+
+
+    visibleItems.forEach(item => motoShowcase.appendChild(item));
+}
+
+
+sortSelect.addEventListener('change', () => {
+    applySorting();
+});
