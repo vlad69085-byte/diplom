@@ -107,7 +107,10 @@
             const visibleItems = Array.from(motoItems).filter(
                 item => item.style.display !== 'none'
             );
-
+            const getName=(item) =>{
+                const titleEL= item.querySelector('.moto-name');
+                return titleEL ? titleEL.textContent.trim() : '';
+            };
             visibleItems.sort((a, b) => {
                 if (sortType === 'price-asc') {
                     return parseInt(a.dataset.price) - parseInt(b.dataset.price);
@@ -117,6 +120,10 @@
                     return parseInt(a.dataset.power) - parseInt(b.dataset.power);
                 } else if (sortType === 'power-desc') {
                     return parseInt(b.dataset.power) - parseInt(a.dataset.power);
+                } else if (sortType ==='name-asc'){
+                    return getName(a).localeCompare(getName(b),'ru');
+                } else if (sortType === 'name-desc'){
+                    return getName(b).localeCompare(getName(a),'ru');
                 }
                 return 0;
             });
