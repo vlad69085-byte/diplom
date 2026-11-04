@@ -1,8 +1,3 @@
- body {
-                  background-color: white; 
-                }
-
-             
 * {
     margin: 0;
     padding: 0;
@@ -15,7 +10,6 @@ body {
     line-height: 1.6;
     background: #f5f5f5;
 }
-
 
 header {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
@@ -34,9 +28,12 @@ header {
 }
 
 .header-content {
+    width: 100%;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
 }
 
 .logo {
@@ -44,6 +41,7 @@ header {
     font-weight: bold;
     color: #ff6b35;
     text-decoration: none;
+    flex-shrink: 0;
 }
 
 .logo span {
@@ -67,6 +65,12 @@ nav a:hover {
     color: #ff6b35;
 }
 
+.header-buttons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
 .header-btn {
     background: #ff6b35;
     color: white;
@@ -76,17 +80,7 @@ nav a:hover {
     cursor: pointer;
     font-weight: 600;
     transition: all 0.3s;
-}
-
-.header-btn1 {
-background: #ff6b35;
-    color: white;
-    padding: 10px 25px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.3s;
+    white-space: nowrap;
 }
 
 .header-btn:hover {
@@ -94,10 +88,72 @@ background: #ff6b35;
     transform: translateY(-2px);
 }
 
+.auth-btn {
+    background: transparent;
+    border: 2px solid #ff6b35;
+}
+
+.auth-btn:hover {
+    background: #ff6b35;
+}
+
+/* Бургер-меню */
+.burger-menu {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.burger-menu span {
+    width: 25px;
+    height: 3px;
+    background: white;
+    transition: all 0.3s;
+}
+
+.burger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.burger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+.mobile-nav {
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 20px;
+}
+
+.mobile-nav.active {
+    display: flex;
+}
+
+.mobile-nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-nav .header-btn {
+    margin-top: 10px;
+}
 
 .hero {
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23333" width="1200" height="600"/><text x="50%" y="50%" font-size="80" fill="%23666" text-anchor="middle">MOTORCYCLE</text></svg>');
+        url('data:image/svg+xml, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23333" width="1200" height="600"/><text x="50%" y="50%" font-size="80" fill="%23666" text-anchor="middle">MOTORCYCLE</text></svg>');
     background-size: cover;
     background-position: center;
     color: white;
@@ -138,7 +194,6 @@ background: #ff6b35;
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(255, 107, 53, 0.3);
 }
-
 
 .catalog {
     padding: 80px 0;
@@ -193,6 +248,12 @@ background: #ff6b35;
     overflow: hidden;
 }
 
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .product-info {
     padding: 25px;
 }
@@ -231,6 +292,7 @@ background: #ff6b35;
 .product-btn:hover {
     background: #ff6b35;
 }
+
 .features {
     padding: 80px 0;
     background: white;
@@ -263,6 +325,7 @@ background: #ff6b35;
     color: #666;
     line-height: 1.8;
 }
+
 footer {
     background: #1a1a2e;
     color: white;
@@ -300,6 +363,7 @@ footer {
     color: #999;
 }
 
+/* Модальные окна */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -326,6 +390,8 @@ footer {
     position: relative;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     animation: modalFadeIn 0.3s ease-out;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 @keyframes modalFadeIn {
@@ -355,6 +421,7 @@ footer {
     align-items: center;
     justify-content: center;
     transition: all 0.3s;
+    z-index: 10;
 }
 
 .close-btn:hover {
@@ -462,7 +529,128 @@ footer {
     to { opacity: 1; }
 }
 
+/* Стили для авторизации */
+.auth-modal {
+    max-width: 450px;
+}
 
+.auth-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: #666;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.auth-tab.active {
+    color: #007bff;
+}
+
+.auth-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #007bff;
+}
+
+.auth-tab:hover {
+    color: #007bff;
+}
+
+.remember-me label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.remember-me input[type="checkbox"] {
+    width: auto;
+    cursor: pointer;
+}
+
+.auth-links {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.forgot-password {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: auto;
+    margin-top: 3px;
+    cursor: pointer;
+}
+
+.checkbox-group a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.checkbox-group a:hover {
+    text-decoration: underline;
+}
+
+/* Индикатор сложности пароля */
+.password-strength {
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.password-strength.strength-none {
+    display: none;
+}
+
+.password-strength.strength-weak {
+    background: #fee;
+    color: #c33;
+}
+
+.password-strength.strength-medium {
+    background: #ffeaa7;
+    color: #d68910;
+}
+
+.password-strength.strength-strong {
+    background: #d5f4e6;
+    color: #27ae60;
+}
+
+/* Каталог мототехники */
 .moto-catalog {
     padding: 40px 20px;
 }
@@ -654,7 +842,30 @@ footer {
     background: #1d4ed8;
 }
 
+/* ===== АДАПТАЦИЯ ===== */
+
+/* Планшеты */
 @media (max-width: 1024px) {
+    .header-content {
+        flex-wrap: wrap;
+    }
+
+    nav ul {
+        gap: 20px;
+    }
+
+    .hero h1 {
+        font-size: 42px;
+    }
+
+    .hero p {
+        font-size: 20px;
+    }
+
+    .section-title {
+        font-size: 36px;
+    }
+
     .catalog-wrapper {
         flex-direction: column;
     }
@@ -679,8 +890,123 @@ footer {
     }
 }
 
-@media (max-width: 640px) {
+/* Мобильные устройства */
+@media (max-width: 768px) {
+    header {
+        padding: 15px 0;
+    }
+
+    .nav-list {
+        display: none;
+    }
+
+    .burger-menu {
+        display: flex;
+    }
+
+    .header-buttons .header-btn:not(.auth-btn) {
+        display: none;
+    }
+
+    .hero {
+        padding: 80px 0;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .hero p {
+        font-size: 18px;
+    }
+
+    .hero-btn {
+        padding: 15px 30px;
+        font-size: 16px;
+    }
+
+    .section-title {
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .catalog-heading {
+        font-size: 24px;
+    }
+
     .moto-showcase {
         grid-template-columns: 1fr;
+    }
+
+    .modal {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .auth-tabs {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .auth-tab {
+        padding: 10px;
+    }
+}
+
+/* Маленькие мобильные устройства */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+
+    .hero h1 {
+        font-size: 26px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .product-info {
+        padding: 15px;
+    }
+
+    .product-title {
+        font-size: 18px;
+    }
+
+    .product-price {
+        font-size: 24px;
+    }
+
+    .moto-details {
+        padding: 15px;
+    }
+
+    .moto-name {
+        font-size: 16px;
+    }
+
+    .moto-cost {
+        font-size: 20px;
     }
 }
